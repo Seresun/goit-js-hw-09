@@ -5,9 +5,7 @@ let formData = {
 };
 
 const fillFormFields = () => {
-  const formDataFromLs = JSON.parse(
-    localStorage.getItem('feedback-form-state')
-  );
+  const formDataFromLs = JSON.parse(localStorage.getItem('feedback-form-state'));
 
   if (formDataFromLs === null) {
     return;
@@ -24,7 +22,7 @@ fillFormFields();
 
 const onFormFieldChange = event => {
   const fieldName = event.target.name;
-  const fieldValue = event.target.value;
+  const fieldValue = event.target.value.trim();
 
   formData[fieldName] = fieldValue;
 
@@ -38,12 +36,19 @@ const onFeedbackFormSubmit = event => {
   const message = formData.message.trim();
 
   if (email === '' || message === '') {
-    alert('Fill please all fields');
+    alert('Please fill all fields');
     return;
   }
+
+  console.log(formData);
   event.target.reset();
   localStorage.removeItem('feedback-form-state');
-  console.log(formData);
+
+  // Clear the formData object
+  formData = {
+    email: '',
+    message: '',
+  };
 };
 
 feedBackFormEl.addEventListener('input', onFormFieldChange);
