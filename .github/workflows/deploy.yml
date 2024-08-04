@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Виконувати деплоймент на кожен пуш у гілку main
+      - main
 
 jobs:
   build-and-deploy:

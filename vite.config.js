@@ -12,14 +12,18 @@ export default defineConfig(({ command }) => {
     build: {
       sourcemap: true,
       rollupOptions: {
-        input: glob.sync('./src/*.html'),
+        input: {
+          main: glob.sync('./src/index.html')[0],
+          gallery: glob.sync('./src/1-gallery.html')[0],
+          form: glob.sync('./src/2-form.html')[0]
+        },
         output: {
           manualChunks(id) {
             if (id.includes('node_modules')) {
               return 'vendor';
             }
           },
-          entryFileNames: 'js/[name].js', // Оновлено для використання імені файлу
+          entryFileNames: 'js/[name].js',
         },
       },
       outDir: '../dist',
